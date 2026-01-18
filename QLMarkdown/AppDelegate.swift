@@ -10,6 +10,11 @@ import Sparkle
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
+    
+    @IBOutlet weak var exampleMenu: NSMenuItem!
+    
+    var markdownFiles: [URL] = []
+    
     var userDriver: SPUStandardUserDriver?
     var updater: SPUUpdater?
     
@@ -57,6 +62,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             alert.addButton(withTitle: "Close").keyEquivalent = "\u{1b}"
             alert.runModal()
         }
+        
+        self.markdownFiles.append(Bundle.main.url(forResource: "test1", withExtension: "md")!)
+        self.markdownFiles.append(Bundle.main.url(forResource: "test2", withExtension: "md")!)
+        
+        if let exampleURL = Bundle.main.url(forResource: "examples", withExtension: nil), let files = try? FileManager.default.contentsOfDirectory(
+                at: exampleURL,
+                    includingPropertiesForKeys: nil,
+                    options: [.skipsHiddenFiles]
+        ) {
+            self.markdownFiles.append(contentsOf: files.filter({ $0.pathExtension.lowercased() == "md" }))
+            self.markdownFiles.sort { a, b in
+                a.lastPathComponent < b.lastPathComponent
+            }
+            
+            for (i, markdownFile) in self.markdownFiles.enumerated() {
+                let mnu = NSMenuItem(title: markdownFile.lastPathComponent, action: #selector(self.handleExample(_:)), keyEquivalent: "")
+                mnu.tag = i
+                self.exampleMenu.submenu?.addItem(mnu)
+            }
+        }
+        
+    }
+    
+    @IBAction func handleExample(_ sender: NSMenuItem) {
+        guard sender.tag >= 0 && sender.tag < markdownFiles.count else {
+            return
+        }
+        
+        _ = self.application(NSApplication.shared, openFile: markdownFiles[sender.tag].path)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

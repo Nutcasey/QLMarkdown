@@ -5,11 +5,15 @@ image url: `example.jpg`
 ![Colibrì](image.jpg)
 
 ## Image with space inside the name
+
+> __Space inside file name is not allowed from the standard!__
+
 image url: `example 1.jpg`
 
 ![Colibrì](image 1.jpg)
 
 ## Image with encoded url
+
 image url: `example%201.jpg`
 
 ![Colibrì](image%201.jpg)
