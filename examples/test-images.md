@@ -1,0 +1,22 @@
+# Test images
+
+image url: `example.jpg`
+
+![Colibrì](image.jpg)
+
+## Image with space inside the name
+image url: `example 1.jpg`
+
+![Colibrì](image 1.jpg)
+
+## Image with encoded url
+image url: `example%201.jpg`
+
+![Colibrì](image%201.jpg)
+
+
+Images with a url do not require this extension.
+
+image url: `https://upload.wikimedia.org/wikipedia/commons/0/07/Serinus_canaria_369321643.jpg`
+
+![Minion](https://upload.wikimedia.org/wikipedia/commons/0/07/Serinus_canaria_369321643.jpg)

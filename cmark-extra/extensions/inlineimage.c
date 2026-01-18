@@ -28,6 +28,7 @@
 // #include <curl/curl.h>
 #include <libgen.h>
 #include <ctype.h>
+#include <curl/curl.h>
 
 static inline void lowercase(char *s){
     while (*s) {
@@ -181,14 +182,15 @@ char *get_base64_image(const char *url, MimeCheck *mime_callback, void *mime_con
     char *mime = NULL;
     char *encoded = NULL;
     
-    parse_url(url, &protocol, &host, &path, &query);
+    char *decoded = curl_easy_unescape(NULL, url, 0, NULL);
+    parse_url(decoded, &protocol, &host, &path, &query);
     
     if (strcmp(protocol, "file") == 0) {
         // The url path is the local file path.
         image_path = path;
     } else if (strlen(host) == 0) {
         // No host, the url is a local file path.
-        image_path = (const char *)url;
+        image_path = (const char *)decoded;
     } else {
         if (remote_callback != NULL) {
             char *buffer = remote_callback(url, remote_context);
@@ -273,6 +275,7 @@ continue_loop:
     free(path);
     free(host);
     free(query);
+    curl_free(decoded);
     
     return encoded;
 }
