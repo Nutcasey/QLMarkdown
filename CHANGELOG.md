@@ -1,6 +1,15 @@
 # Changelog
 
 
+### 1.0.24 (50)
+New Features:
+- Support to Mermaid diagram (thanks to @SethCalkins and @Alfahad)
+Bugfix:
+- sub/sup extension.
+- support for encoded url for inline images.
+- removed some legacy code (thanks to @deepc0py)
+
+
 ### 1.0.23 (49)
 Bugfix:
 - Unable to save the settings.

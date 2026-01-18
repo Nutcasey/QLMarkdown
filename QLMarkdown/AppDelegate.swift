@@ -71,13 +71,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                     includingPropertiesForKeys: nil,
                     options: [.skipsHiddenFiles]
         ) {
-            self.markdownFiles.append(contentsOf: files.filter({ $0.pathExtension.lowercased() == "md" }))
+            self.markdownFiles.append(contentsOf: files.filter({ $0.pathExtension.lowercased() == "md" || $0.pathExtension.lowercased() == "rmd" }))
             self.markdownFiles.sort { a, b in
                 a.lastPathComponent < b.lastPathComponent
             }
             
             for (i, markdownFile) in self.markdownFiles.enumerated() {
-                let mnu = NSMenuItem(title: markdownFile.lastPathComponent, action: #selector(self.handleExample(_:)), keyEquivalent: "")
+                let mnu = NSMenuItem(title: markdownFile.deletingPathExtension().lastPathComponent, action: #selector(self.handleExample(_:)), keyEquivalent: "")
                 mnu.tag = i
                 self.exampleMenu.submenu?.addItem(mnu)
             }
