@@ -103,7 +103,7 @@ H~2~O
 
 m^2^
 
-Please note that the Strikethrough extension must be disabled or set to recognize the double tilde `~~`.
+> Please note that the `Strikethrough extension` must be disabled or set to recognize the double tilde `~~`.
 
 
 ## Table extension
@@ -154,6 +154,20 @@ function test(array $a, string $b, $c = null): boolean {
 
 The `smart quote` option format the quote as "curly" [^footnote1].
 
+
+# Mermaid Diagram Test
+
+
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Do Something]
+    B -->|No| D[Do Something Else]
+    C --> E[End]
+    D --> E
+```
+
+
 ---
-[^footnote1]: If the option `footnotes` is enabled this text is rendered as a foot note. _Footnotes is not recognized in the GitHub pages._
+[^footnote1]: If the option `footnotes` is enabled this text is rendered as a foot note. 
 
