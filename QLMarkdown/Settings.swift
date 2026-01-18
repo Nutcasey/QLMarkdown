@@ -77,9 +77,7 @@ class Settings: Codable {
         case openInlineLink
         
         case renderAsCode
-        
-        case useLegacyPreview
-        
+
         case qlWindowWidth
         case qlWindowHeight
         
@@ -156,8 +154,6 @@ class Settings: Codable {
             UserDefaults.standard.synchronize();
         }
     }
-    
-    var useLegacyPreview: Bool = false
     
     /// Quick Look window width.
     var qlWindowWidth: Int? = nil
@@ -262,9 +258,7 @@ class Settings: Codable {
         self.openInlineLink = try container.decode(Bool.self, forKey: .openInlineLink)
     
         self.renderAsCode = try container.decode(Bool.self, forKey: .renderAsCode)
-    
-        self.useLegacyPreview = try container.decode(Bool.self, forKey: .useLegacyPreview)
-    
+
         self.qlWindowWidth = try container.decode(Int?.self, forKey: .qlWindowWidth)
         self.qlWindowHeight = try container.decode(Int?.self, forKey: .qlWindowHeight)
     
@@ -326,8 +320,7 @@ class Settings: Codable {
         try container.encode(self.customCSSOverride, forKey: .customCSSOverride)
         try container.encode(self.openInlineLink, forKey: .openInlineLink)
         try container.encode(self.renderAsCode, forKey: .renderAsCode)
-        
-        try container.encode(self.useLegacyPreview, forKey: .useLegacyPreview)
+
         try container.encode(self.qlWindowWidth, forKey: .qlWindowWidth)
         try container.encode(self.qlWindowHeight, forKey: .qlWindowHeight)
         try container.encode(self.about, forKey: .about)
@@ -413,8 +406,6 @@ class Settings: Codable {
         
         self.qlWindowWidth = s.qlWindowWidth
         self.qlWindowHeight = s.qlWindowHeight
-        
-        self.useLegacyPreview = false
     }
     
     func update(from defaultsDomain: [String: Any]) {
@@ -565,10 +556,6 @@ class Settings: Codable {
             qlWindowHeight = opt
         } else {
             qlWindowHeight = nil
-        }
-        
-        if let opt = defaultsDomain["legacy-preview"] as? Bool {
-            useLegacyPreview = opt
         }
 
         sanitizeEmojiOption()
